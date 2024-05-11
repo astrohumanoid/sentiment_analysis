@@ -13,70 +13,7 @@ import spacy
 nlp = spacy.load('en_core_web_sm')
 print("-----LIB IMPORTED CORRECTLY-----")
 
-with open('list_url.txt', 'r') as in_file:
-    stripped = (line.strip() for line in in_file)
-    lines = (line.split(",", 2) for line in stripped if line)
-    lines2 = ([line[0], line[1], re.sub(',(?![0-9]|http)', '/qq/', line[2])] for line in lines)
-    lines3 = (line + line[2].split(",") for line in lines2)
-    lines4 = (line[0:2] + line[3:] for line in lines3)
-
-    lines_1 = (line for line in lines4 if int(line[0]) < 2000)
-    with open('list_url_trf.csv', 'w') as out_file:
-        writer = csv.writer(out_file)
-        writer.writerow(('Year of the report', 'Quarter of the report', 'Company Name', 'Standard Industrial Classification Code', 'Type of Report', 'Central Index Key', 'Report Page', 'Report as Text'))
-        writer.writerows(lines_1)
-
-with open('list_url.txt', 'r') as in_file:
-    stripped = (line.strip() for line in in_file)
-    lines = (line.split(",", 2) for line in stripped if line)
-    lines2 = ([line[0], line[1], re.sub(',(?![0-9]|http)', '/qq/', line[2])] for line in lines)
-    lines3 = (line + line[2].split(",") for line in lines2)
-    lines4 = (line[0:2] + line[3:] for line in lines3)
-
-    lines_2 = (line for line in lines4 if (int(line[0]) < 2010 and int(line[0]) >= 2000))
-    with open('list_url_trf(2).csv', 'w') as out_file:
-        writer = csv.writer(out_file)
-        writer.writerow(('Year of the report', 'Quarter of the report', 'Company Name', 'Standard Industrial Classification Code', 'Type of Report', 'Central Index Key', 'Report Page', 'Report as Text'))
-        writer.writerows(lines_2)
-
-with open('list_url.txt', 'r') as in_file:
-    stripped = (line.strip() for line in in_file)
-    lines = (line.split(",", 2) for line in stripped if line)
-    lines2 = ([line[0], line[1], re.sub(',(?![0-9]|http)', '/qq/', line[2])] for line in lines)
-    lines3 = (line + line[2].split(",") for line in lines2)
-    lines4 = (line[0:2] + line[3:] for line in lines3)
-    lines_3 = (line for line in lines4 if (int(line[0]) < 2020 and int(line[0]) >= 2015))
-    with open('list_url_trf(3).csv', 'w') as out_file:
-        writer = csv.writer(out_file)
-        writer.writerow(('Year of the report', 'Quarter of the report', 'Company Name', 'Standard Industrial Classification Code', 'Type of Report', 'Central Index Key', 'Report Page', 'Report as Text'))
-        writer.writerows(lines_3)
-
-with open('list_url.txt', 'r') as in_file:
-    stripped = (line.strip() for line in in_file)
-    lines = (line.split(",", 2) for line in stripped if line)
-    lines2 = ([line[0], line[1], re.sub(',(?![0-9]|http)', '/qq/', line[2])] for line in lines)
-    lines3 = (line + line[2].split(",") for line in lines2)
-    lines4 = (line[0:2] + line[3:] for line in lines3)
-    lines_3 = (line for line in lines4 if (int(line[0]) < 2015 and int(line[0]) >= 2010))
-    with open('list_url_trf(3.5).csv', 'w') as out_file:
-        writer = csv.writer(out_file)
-        writer.writerow(('Year of the report', 'Quarter of the report', 'Company Name', 'Standard Industrial Classification Code', 'Type of Report', 'Central Index Key', 'Report Page', 'Report as Text'))
-        writer.writerows(lines_3)
-
-with open('list_url.txt', 'r') as in_file:
-    stripped = (line.strip() for line in in_file)
-    lines = (line.split(",", 2) for line in stripped if line)
-    lines2 = ([line[0], line[1], re.sub(',(?![0-9]|http)', '/qq/', line[2])] for line in lines)
-    lines3 = (line + line[2].split(",") for line in lines2)
-    lines4 = (line[0:2] + line[3:] for line in lines3)
-
-    lines_4 = (line for line in lines4 if (int(line[0]) < 2030 and int(line[0]) >= 2020))
-    with open('list_url_trf(4).csv', 'w') as out_file:
-        writer = csv.writer(out_file)
-        writer.writerow(('Year of the report', 'Quarter of the report', 'Company Name', 'Standard Industrial Classification Code', 'Type of Report', 'Central Index Key', 'Report Page', 'Report as Text'))
-        writer.writerows(lines_4)
-
-df = pd.read_csv(r'list_url_trf(4).csv').head(10)
+df = pd.read_csv(r'list_url_trf(4).csv')
 df['Company Name'] = df['Company Name'].apply(lambda x: re.sub('/qq/', ',', x))
 
 def remove_punctuation_words(text):
@@ -93,7 +30,7 @@ def remove_punctuation_words(text):
     return cleaned_text
 
 def create_txt_file(a, b, c, d) :
-    filename = "sample/" + str(a) + "_" + str(b) + "_" + str(c)
+    filename = "sample(4)/" + str(a) + "_" + str(b) + "_" + str(c)
     print("processing: " + filename)
     f = open(filename + '_parsed.txt', "w+", encoding = "utf-8")
     headers = {
@@ -202,7 +139,7 @@ def finalize_csv(a, b, c, sentences) :
         del dictio
 
     # Open a text file in write mode ('w')
-    filename = "sample/" + str(a) + "_" + str(b) + "_" + str(c) + '.txt'
+    filename = "sample(4)/" + str(a) + "_" + str(b) + "_" + str(c) + '.txt'
     print("finalizing: " + filename)
     with open(filename, 'w', encoding="utf-8") as file:
         # Write some text to the file
