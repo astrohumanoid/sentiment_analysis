@@ -13,7 +13,7 @@ import spacy
 nlp = spacy.load('en_core_web_sm')
 print("-----LIB IMPORTED CORRECTLY-----")
 
-df = pd.read_csv(r'list_url_trf(4).csv')
+df = pd.read_csv(r'list_url_trf(2010).csv')
 df['Company Name'] = df['Company Name'].apply(lambda x: re.sub('/qq/', ',', x))
 
 def remove_punctuation_words(text):
@@ -30,7 +30,7 @@ def remove_punctuation_words(text):
     return cleaned_text
 
 def create_txt_file(a, b, c, d) :
-    filename = "sample(4)/" + str(a) + "_" + str(b) + "_" + str(c)
+    filename = "sample/2010/" + str(a) + "_" + str(b) + "_" + str(c)
     print("processing: " + filename)
     f = open(filename + '_parsed.txt', "w+", encoding = "utf-8")
     headers = {
@@ -139,7 +139,7 @@ def finalize_csv(a, b, c, sentences) :
         del dictio
 
     # Open a text file in write mode ('w')
-    filename = "sample(4)/" + str(a) + "_" + str(b) + "_" + str(c) + '.txt'
+    filename = "sample/2010/" + str(a) + "_" + str(b) + "_" + str(c) + '.txt'
     print("finalizing: " + filename)
     with open(filename, 'w', encoding="utf-8") as file:
         # Write some text to the file
@@ -149,4 +149,4 @@ def finalize_csv(a, b, c, sentences) :
     return relevant_sentences
 
 df['Sentence w/ Relevant Words'] = df.apply(lambda x : finalize_csv(x['Year of the report'], x['Quarter of the report'], x['Central Index Key'], x['Chunks of Sentences']), axis = 1)
-df.to_csv("finalized(4).csv")
+df.to_csv("finalized(2010).csv")
